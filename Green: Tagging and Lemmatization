@@ -1,0 +1,13 @@
+nltk.download('averaged_perceptron_tagger')  # You need to do this once if you want to use the pos_tag function
+nltk.download('universal_tagset')  # You need to do this once if you want to use the universal tagset
+nltk.download('wordnet')  # You need to do this once if you want to use the WordNetLemmatizer
+
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+lemmatizer.lemmatize('better', pos='a')  # 'good'
+lemmatizer.lemmatize('ran', pos='v')  # 'run'
+lemmatizer.lemmatize('dogs', pos='n')  # 'dog'
+
+print(nltk.pos_tag(tokens, tagset='universal'))
+
