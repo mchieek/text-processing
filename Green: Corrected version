@@ -79,3 +79,18 @@ print(lemmatized_words)
 # Print lemmatized words with their tag
 tagged_lemmatized_words = nltk.pos_tag(lemmatized_words, tagset="universal")
 print(tagged_lemmatized_words)
+
+# Print lemmatized words with their tag
+tagged_lemmatized_words = nltk.pos_tag(lemmatized_words, tagset="universal")
+# print(tagged_lemmatized_words)
+
+# Calculate new (lemmatized) wordcount
+lemmatized_wordcount = len(lemmatized_words)
+# print(f"{lemmatized_wordcount} words in total (lemmatized)")
+
+# Calculate new (lemmatized) unique word count
+lemmatized_unique_word_count = Counter(lemmatized_words)
+print(lemmatized_unique_word_count)
+
+# Calculate word frequency of nouns
+nouns_frequency = Counter
