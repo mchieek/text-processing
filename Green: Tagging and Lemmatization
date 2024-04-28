@@ -1,8 +1,4 @@
-nltk.download('averaged_perceptron_tagger')  # You need to do this once if you want to use the pos_tag function
-nltk.download('universal_tagset')  # You need to do this once if you want to use the universal tagset
-nltk.download('wordnet')  # You need to do this once if you want to use the WordNetLemmatizer
 
-from nltk.stem import WordNetLemmatizer
 
 lemmatizer = WordNetLemmatizer()
 lemmatizer.lemmatize('better', pos='a')  # 'good'
@@ -11,3 +7,69 @@ lemmatizer.lemmatize('dogs', pos='n')  # 'dog'
 
 print(nltk.pos_tag(tokens, tagset='universal'))
 
+import nltk
+
+nltk.download("punkt")
+nltk.download("gutenberg")
+nltk.download("stopwords")
+nltk.download('averaged_perceptron_tagger')  # You need to do this once if you want to use the pos_tag function
+nltk.download('universal_tagset')  # You need to do this once if you want to use the universal tagset
+nltk.download('wordnet')  # You need to do this once if you want to use the WordNetLemmatizer
+
+from nltk.corpus import gutenberg, stopwords
+from collections import Counter
+from nltk.stem import WordNetLemmatizer
+
+# Access book text from Gutenberg project
+emma = gutenberg.raw("austen-emma.txt")
+
+# Tokenize text into sentences and words
+sentence_tokens = nltk.sent_tokenize(emma)
+word_tokens = nltk.word_tokenize(emma)
+
+# Tokenize sentences into lists of words
+sentences_and_words = []
+word_tokens_filtered = []
+word_no_punctuation = []
+stopwords = set(stopwords.words("english"))
+for sentence in sentence_tokens:
+    word_tokens = nltk.word_tokenize(sentence)
+    for word in word_tokens:
+        # Filter out punctuation and uninteresting words
+        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"] and word.lower() not in stopwords):
+            sentences_and_words.append(word)
+            word_tokens_filtered.append(word)
+
+# Part-of-Speech tag word tokens
+tagged_words = nltk.pos_tag(word_tokens, tagset="universal")
+
+# Word Type Mapping
+word_type = {
+  'NOUN': 'n',
+  'VERB': 'v',
+  'ADJ': 'a',
+  'ADV': 'r'
+}
+
+# Lemmatize word tokens
+lemmatizer = WordNetLemmatizer()
+lemmatized_words = []
+for word, tag in tagged_words:
+  if tag in word_types:
+    lemmatized_words.append(
+      lemmatizer.lemmatize(word, pos=word_types[tag])
+    )
+
+print(lemmatized_words)
+
+# Count total number of words in book
+for word in word_tokens:
+    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"]:
+        word_no_punctuation.append(word)
+word_count = len(word_no_punctuation)
+print(f"{word_count} words in total")
+
+
+# Retrieve top 10 most used words
+top_ten = unique_word_frequency.most_common(10)
+print(f"top 10: {[word[0] for word in top_ten]}")
