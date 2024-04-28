@@ -1,0 +1,74 @@
+import nltk
+from nltk.corpus import gutenberg, stopwords
+from nltk.stem import WordNetLemmatizer
+from collections import Counter
+
+nltk.download("punkt")
+nltk.download("gutenberg")
+nltk.download("stopwords")
+nltk.download("averaged_perceptron_tagger")
+nltk.download("universal_tagset")
+nltk.download("wordnet")
+
+# Access book text from Gutenberg project
+book_text = gutenberg.raw("austen-emma.txt")
+
+# Tokenize text into sentences
+sentence_tokens = nltk.sent_tokenize(book_text)
+extract = sentence_tokens[:5]
+
+# Tokenize sentences into lists of words
+sentences_and_words = []
+filtered_word_tokens_with_stopwords = []
+filtered_word_tokens = []
+stopwords = set(stopwords.words("english"))
+unwanted_punctuation = ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``", "n't", "(", ")", "_", "]", "["]
+
+for sentence in extract:
+    unfiletered_word_tokens = nltk.word_tokenize(sentence)
+    for word in unfiletered_word_tokens:
+        # Filter out punctuation and uninteresting words
+        if word not in unwanted_punctuation:
+            filtered_word_tokens_with_stopwords.append(word)
+        if word not in unwanted_punctuation and word.lower() not in stopwords:
+            filtered_word_tokens.append(word)
+# print(filtered_word_tokens)
+
+# Count total wordcount in book including stopwords
+word_count = len(filtered_word_tokens_with_stopwords)
+# print(f"{word_count} words in total")
+
+# Count total number of sentences in book
+sentence_count = len(sentence_tokens)
+# print(f"{sentence_count} sentences in total")
+
+# Count number of unique words in book
+unique_word_count = Counter(filtered_word_tokens)
+# print(f"{len(unique_word_count)} unique words in total")
+
+# Retrieve and rank the top 10 most used words
+top_ten = unique_word_count.most_common(10)
+# print("top 10:")
+rank = 1
+for word, count in top_ten:
+    # print(f"{rank}. {word}, {count} times")
+    rank += 1
+
+# Part-of-speech tag word tokens 
+tagged_word_tokens = nltk.pos_tag(filtered_word_tokens, tagset="universal")
+
+# Word Type Mapping
+word_type = {
+  'NOUN': 'n',
+  'VERB': 'v',
+  'ADJ': 'a',
+  'ADV': 'r'
+}
+
+# Lemmatize word tokens
+lemmatizer = WordNetLemmatizer()
+lemmatized_words = []
+for word, tag in tagged_word_tokens:
+    if tag in word_type:
+        lemmatized_words.append(lemmatizer.lemmatize(word.lower(), pos=word_type[tag]))
+print(lemmatized_words)
