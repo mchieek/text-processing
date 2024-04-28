@@ -1,12 +1,3 @@
-
-
-lemmatizer = WordNetLemmatizer()
-lemmatizer.lemmatize('better', pos='a')  # 'good'
-lemmatizer.lemmatize('ran', pos='v')  # 'run'
-lemmatizer.lemmatize('dogs', pos='n')  # 'dog'
-
-print(nltk.pos_tag(tokens, tagset='universal'))
-
 import nltk
 
 nltk.download("punkt")
@@ -36,12 +27,12 @@ for sentence in sentence_tokens:
     word_tokens = nltk.word_tokenize(sentence)
     for word in word_tokens:
         # Filter out punctuation and uninteresting words
-        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"] and word.lower() not in stopwords):
+        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``", "n't"] and word.lower() not in stopwords):
             sentences_and_words.append(word)
             word_tokens_filtered.append(word)
 
 # Part-of-Speech tag word tokens
-tagged_words = nltk.pos_tag(word_tokens, tagset="universal")
+tagged_words = nltk.pos_tag(word_tokens_filtered, tagset="universal")
 
 # Word Type Mapping
 word_type = {
@@ -55,12 +46,12 @@ word_type = {
 lemmatizer = WordNetLemmatizer()
 lemmatized_words = []
 for word, tag in tagged_words:
-  if tag in word_types:
-    lemmatized_words.append(
-      lemmatizer.lemmatize(word, pos=word_types[tag])
-    )
+    if tag in word_type:
+        lemmatized_words.append(
+            lemmatizer.lemmatize(word.lower(), pos=word_type[tag])
+        )
 
-print(lemmatized_words)
+print(set(lemmatized_words))
 
 # Count total number of words in book
 for word in word_tokens:
@@ -69,6 +60,9 @@ for word in word_tokens:
 word_count = len(word_no_punctuation)
 print(f"{word_count} words in total")
 
+# Count number of unique words in book
+unique_word_frequency = Counter(word_tokens_filtered)
+print(f"{len(unique_word_frequency)} unique words in total")
 
 # Retrieve top 10 most used words
 top_ten = unique_word_frequency.most_common(10)
