@@ -43,9 +43,9 @@ word_count = len(filtered_word_tokens_with_stopwords)
 sentence_count = len(sentence_tokens)
 # print(f"{sentence_count} sentences in total")
 
-# Count number of unique words in book
-unique_word_count = Counter(filtered_word_tokens)
-# print(f"{len(unique_word_count)} unique words in total")
+# Count number of unique words in book including stop words
+unique_word_count = Counter(filtered_word_tokens_with_stopwords)
+print(f"{len(unique_word_count)} unique words in total")
 
 # Retrieve and rank the top 10 most used words
 top_ten = unique_word_count.most_common(10)
