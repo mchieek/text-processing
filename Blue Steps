@@ -26,7 +26,7 @@ for sentence in sentence_tokens:
             word_tokens_filtered.append(word)
 
 # Count total number of words in book
-for word in nlkt.word_tokenize(emma):
+for word in nltk.word_tokenize(emma):
     if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"]:
         word_no_punctuation.append(word)
 word_count = len(word_no_punctuation)
