@@ -93,4 +93,33 @@ lemmatized_unique_word_count = Counter(lemmatized_words)
 print(lemmatized_unique_word_count)
 
 # Calculate word frequency of nouns
-nouns_frequency = Counter
+nouns = []
+for word, tag in tagged_lemmatized_words:
+    if tag == "NOUN":
+        nouns.append(word)
+nouns_frequency = Counter(nouns)
+print(f"Nouns: {nouns_frequency}")
+
+# Calculate word frequency of verbs
+verbs = []
+for word, tag in tagged_lemmatized_words:
+    if tag == "VERB":
+        verbs.append(word)
+verbs_frequency = Counter(verbs)
+print(f"Verbs: {verbs_frequency}")
+
+# Calculate word frequency of adjectives
+adjectives = []
+for word, tag in tagged_lemmatized_words:
+    if tag == "ADJ":
+        adjectives.append(word)
+adjectives_frequency = Counter(adjectives)
+print(f"Adjectives: {adjectives_frequency}")
+
+# Calculate word frequency of adverbs
+adverbs = []
+for word, tag in tagged_lemmatized_words:
+    if tag == "ADV":
+        adverbs.append(word)
+adverbs_frequency = Counter(adverbs)
+print(f"Adverbs: {adverbs_frequency}")
