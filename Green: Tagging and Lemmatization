@@ -55,15 +55,15 @@ print(set(lemmatized_words))
 
 # Count total number of words in book
 for word in word_tokens:
-    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``", "n't"]:
+    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"]:
         word_no_punctuation.append(word)
 word_count = len(word_no_punctuation)
 print(f"{word_count} words in total")
 
 # Count number of unique words in book
-unique_word_frequency = Counter(word_tokens_filtered)
-print(f"{len(unique_word_frequency)} unique words in total")
+unique_word_count = Counter(word_tokens_filtered)
+print(f"{len(unique_word_count)} unique words in total")
 
 # Retrieve top 10 most used words
-top_ten = unique_word_frequency.most_common(10)
+top_ten = unique_word_count.most_common(10)
 print(f"top 10: {[word[0] for word in top_ten]}")
