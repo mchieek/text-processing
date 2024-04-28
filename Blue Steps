@@ -2,12 +2,12 @@ import nltk
 from nltk.corpus import gutenberg, stopwords
 from collections import Counter
 
-nltk.download('punkt')
-nltk.download('gutenberg')
-nltk.download('stopwords')
+nltk.download("punkt")
+nltk.download("gutenberg")
+nltk.download("stopwords")
 
 # Access book text from Gutenberg project
-emma = gutenberg.raw('austen-emma.txt')
+emma = gutenberg.raw("austen-emma.txt")
 
 # Tokenize text into sentences
 sentence_tokens = nltk.sent_tokenize(emma)
@@ -16,30 +16,30 @@ sentence_tokens = nltk.sent_tokenize(emma)
 sentences_and_words = []
 word_tokens_filtered = []
 word_no_punctuation = []
-stopwords = set(stopwords.words('english'))
+stopwords = set(stopwords.words("english"))
 for sentence in sentence_tokens:
     word_tokens = nltk.word_tokenize(sentence)
     for word in word_tokens:
         # Filter out punctuation and uninteresting words
-        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"] and word.lower() not in stopwords):
+        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"] and word.lower() not in stopwords):
             sentences_and_words.append(word)
             word_tokens_filtered.append(word)
 
 # Count total number of words in book
 for word in nltk.word_tokenize(emma):
-    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"]:
+    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"]:
         word_no_punctuation.append(word)
 word_count = len(word_no_punctuation)
-print(f'{word_count} words in total')
+print(f"{word_count} words in total")
 
 # Count total number of sentences in book
 sentence_count = len(sentence_tokens)
-print(f'{sentence_count} sentences in total')
+print(f"{sentence_count} sentences in total")
 
 # Count number of unique words in book
 unique_word_frequency = Counter(word_tokens_filtered)
-print(f'{len(unique_word_frequency)} unique words in total')
+print(f"{len(unique_word_frequency)} unique words in total")
 
 # Retrieve top 10 most used words
 top_ten = unique_word_frequency.most_common(10)
-print(f'top 10: {[word[0] for word in top_ten]}')
+print(f"top 10: {[word[0] for word in top_ten]}")
