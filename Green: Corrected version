@@ -22,7 +22,8 @@ sentences_and_words = []
 filtered_word_tokens_with_stopwords = []
 filtered_word_tokens = []
 stopwords = set(stopwords.words("english"))
-unwanted_punctuation = ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``", "n't", "(", ")", "_", "]", "["]
+unwanted_punctuation = ["!", "?", ",", "--", ".", "''", ";", ":",
+                        "'s", "``", "n't", "(", ")", "_", "]", "["]
 
 for sentence in extract:
     unfiletered_word_tokens = nltk.word_tokenize(sentence)
