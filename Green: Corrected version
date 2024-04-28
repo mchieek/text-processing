@@ -98,7 +98,15 @@ for word, tag in tagged_lemmatized_words:
     if tag == "NOUN":
         nouns.append(word)
 nouns_frequency = Counter(nouns)
-print(f"Nouns: {nouns_frequency}")
+# print(f"Nouns: {nouns_frequency}")
+
+# Retrieve 5 most common nouns
+top_ten = nouns_frequency.most_common(5)
+print("Top 5 most common nouns:")
+rank = 1
+for word, count in top_ten:
+    print(f"{rank}. {word}, cited {count} times")
+    rank += 1
 
 # Calculate word frequency of verbs
 verbs = []
@@ -106,7 +114,15 @@ for word, tag in tagged_lemmatized_words:
     if tag == "VERB":
         verbs.append(word)
 verbs_frequency = Counter(verbs)
-print(f"Verbs: {verbs_frequency}")
+# print(f"Verbs: {verbs_frequency}")
+
+# Retrieve 5 most common verbs
+top_ten = verbs_frequency.most_common(5)
+print("Top 5 most common verbs:")
+rank = 1
+for word, count in top_ten:
+    print(f"{rank}. {word}, cited {count} times")
+    rank += 1
 
 # Calculate word frequency of adjectives
 adjectives = []
@@ -114,7 +130,15 @@ for word, tag in tagged_lemmatized_words:
     if tag == "ADJ":
         adjectives.append(word)
 adjectives_frequency = Counter(adjectives)
-print(f"Adjectives: {adjectives_frequency}")
+# print(f"Adjectives: {adjectives_frequency}")
+
+# Retrieve 5 most common adjectives
+top_ten = adjectives_frequency.most_common(5)
+print("Top 5 most common adjectives:")
+rank = 1
+for word, count in top_ten:
+    print(f"{rank}. {word}, cited {count} times")
+    rank += 1
 
 # Calculate word frequency of adverbs
 adverbs = []
@@ -122,4 +146,12 @@ for word, tag in tagged_lemmatized_words:
     if tag == "ADV":
         adverbs.append(word)
 adverbs_frequency = Counter(adverbs)
-print(f"Adverbs: {adverbs_frequency}")
+# print(f"Adverbs: {adverbs_frequency}")
+
+# Retrieve 5 most common adverbs
+top_ten = adverbs_frequency.most_common(5)
+print("Top 5 most common adverbs:")
+rank = 1
+for word, count in top_ten:
+    print(f"{rank}. {word}, cited {count} times")
+    rank += 1
