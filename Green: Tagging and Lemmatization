@@ -55,7 +55,7 @@ print(set(lemmatized_words))
 
 # Count total number of words in book
 for word in word_tokens:
-    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"]:
+    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``", "n't"]:
         word_no_punctuation.append(word)
 word_count = len(word_no_punctuation)
 print(f"{word_count} words in total")
