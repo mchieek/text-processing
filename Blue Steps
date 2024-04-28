@@ -15,13 +15,15 @@ sentence_tokens = nltk.sent_tokenize(emma)
 # Tokenize sentences into lists of words
 sentences_and_words = []
 word_tokens_filetered = []
+word_no_punctuation = []
 stopwords = set(stopwords.words('english'))
 for sentence in sentence_tokens:
     word_tokens = nltk.word_tokenize(sentence)
     for word in word_tokens:
         # Filter out uninteresting words and punctuation
-        if (word.lower() not in stopwords
-            and word not in ['!', '?', '.', '--', ',', "''", ';', '``']):
+        if word        
+if (word.lower() not in stopwords
+            and word not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"]):
             sentences_and_words.append(word)
             word_tokens_filetered.append(word)
 
