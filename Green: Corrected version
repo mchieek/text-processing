@@ -70,5 +70,12 @@ lemmatizer = WordNetLemmatizer()
 lemmatized_words = []
 for word, tag in tagged_word_tokens:
     if tag in word_type:
-        lemmatized_words.append(lemmatizer.lemmatize(word.lower(), pos=word_type[tag]))
+        lemmatized_words.append(
+            lemmatizer.lemmatize(word.lower(), pos=word_type[tag])
+            )
 print(lemmatized_words)
+
+
+# Print lemmatized words with their tag
+tagged_lemmatized_words = nltk.pos_tag(lemmatized_words, tagset="universal")
+print(tagged_lemmatized_words)
