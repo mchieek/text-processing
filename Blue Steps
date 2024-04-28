@@ -43,4 +43,3 @@ print(f'{len(unique_word_frequency)} unique words in total')
 # Retrieve top 10 most used words
 top_ten = unique_word_frequency.most_common(10)
 print(f'top 10: {[word[0] for word in top_ten]}')
-
