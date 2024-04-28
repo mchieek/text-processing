@@ -14,21 +14,22 @@ sentence_tokens = nltk.sent_tokenize(emma)
 
 # Tokenize sentences into lists of words
 sentences_and_words = []
-word_tokens_filetered = []
+word_tokens_filtered = []
 word_no_punctuation = []
 stopwords = set(stopwords.words('english'))
 for sentence in sentence_tokens:
     word_tokens = nltk.word_tokenize(sentence)
     for word in word_tokens:
-        # Filter out uninteresting words and punctuation
-        if word        
-if (word.lower() not in stopwords
-            and word not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"]):
+        # Filter out punctuation and uninteresting words
+        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"] and word.lower() not in stopwords):
             sentences_and_words.append(word)
-            word_tokens_filetered.append(word)
+            word_tokens_filtered.append(word)
 
 # Count total number of words in book
-word_count = len(nltk.word_tokenize(emma))
+for word in nlkt.word_tokenize(emma):
+    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s" "``"]:
+        word_no_punctuation.append(word)
+word_count = len(word_no_punctuation)
 print(f'{word_count} words in total')
 
 # Count total number of sentences in book
@@ -36,7 +37,7 @@ sentence_count = len(sentence_tokens)
 print(f'{sentence_count} sentences in total')
 
 # Count number of unique words in book
-unique_word_frequency = Counter(word_tokens_filetered)
+unique_word_frequency = Counter(word_tokens_filtered)
 print(f'{len(unique_word_frequency)} unique words in total')
 
 # Retrieve top 10 most used words
