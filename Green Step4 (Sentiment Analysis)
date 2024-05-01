@@ -1,0 +1,67 @@
+import nltk
+import pandas as pd
+
+from nltk.corpus import gutenberg, stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# Access book text from Gutenberg project
+book_text = gutenberg.raw("austen-emma.txt")
+
+# Define variables
+sentences_and_words: list[list[str]] = []
+word_tokens_filtered: list[str] = []
+sentiments: list[dict] = []
+lemmatizer = WordNetLemmatizer()
+sentence_tokens = nltk.sent_tokenize(book_text)
+stopwords = set(stopwords.words("english"))
+
+# Word Type Mapping
+word_type: dict = {
+    "NOUN": "n",
+    "VERB": "v",
+    "ADJ": "a",
+    "ADV": "r"
+}
+
+for sentence in sentence_tokens:
+    lemmatized_words = []
+    # Using VADER for Sentiment Analysis
+    vader = SentimentIntensityAnalyzer()
+    sentiment = vader.polarity_scores(sentence)
+
+    # Tag and Lemmatize Words in Sentence
+    word_tokens = nltk.word_tokenize(sentence.strip())
+    for word in word_tokens:
+        # Filter out punctuation and uninteresting words
+        if (word not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"] and word not in stopwords):
+            sentences_and_words.append(word)
+            word_tokens_filtered.append(word)
+
+    # Tag and lemmatize filtered words
+    tagged_words = nltk.pos_tag(word_tokens, tagset="universal")
+    for word, tag in tagged_words:
+        if tag in word_type:
+            lemmatized_words.append((lemmatizer.lemmatize(word, pos=word_type[tag]), tag))
+
+    # Add sentences and words into sentiment list
+    for word, tag in lemmatized_words:
+        sentiments.append({
+            "sentence": sentence,
+            "word": word,
+            "part_of_speech": tag,
+            "negative": sentiment["neg"],
+            "neutral": sentiment["neu"],
+            "positive": sentiment["pos"],
+            "compound": sentiment["compound"]
+        })
+
+# Turn the sentiment list into a data frame
+sentiments = pd.DataFrame(sentiments)
+
+# Comparing characters of interest: Emma, Harriet, Jane
+emma = sentiments[sentiments["word"] == "Emma"]
+harriet = sentiments[sentiments["word"] == "Harriet"]
+jane = sentiments[sentiments["word"] == "Jane"]
+print(f"""The respective compound sentiments for Emma, Harriet, and Jane are:
+      {round(emma["compound"].mean(), 3)}, {round(harriet["compound"].mean(), 3)}, and {round(jane["compound"].mean(), 3)}""")
