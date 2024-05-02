@@ -4,13 +4,6 @@ from nltk.corpus import gutenberg, stopwords
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
 
-nltk.download("punkt")
-nltk.download("gutenberg")
-nltk.download("stopwords")
-nltk.download("averaged_perceptron_tagger")
-nltk.download("universal_tagset")
-nltk.download("wordnet")
-
 # Access book text from Gutenberg project
 book_text = gutenberg.raw("austen-emma.txt")
 
