@@ -17,17 +17,20 @@ sentences_and_words = []
 word_tokens_filtered = []
 word_no_punctuation = []
 stopwords = set(stopwords.words("english"))
+unwanted_punctuation = ["!", "?", ",", "--", ".", "''", ";", ":",
+                        "'s", "``", "n't", "(", ")", "_", "]", "["]
+
 for sentence in sentence_tokens:
     word_tokens = nltk.word_tokenize(sentence)
     for word in word_tokens:
         # Filter out punctuation and uninteresting words
-        if (word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"] and word.lower() not in stopwords):
+        if (word.lower() not in unwanted_punctuation and word.lower() not in stopwords):
             sentences_and_words.append(word)
             word_tokens_filtered.append(word)
 
 # Count total number of words in book
 for word in nltk.word_tokenize(emma):
-    if word.lower() not in ["!", "?", ",", "--", ".", "''", ";", ":", "'s", "``"]:
+    if word.lower() not in unwanted_punctuation:
         word_no_punctuation.append(word)
 word_count = len(word_no_punctuation)
 print(f"{word_count} words in total")
