@@ -1,4 +1,5 @@
 import nltk
+
 from nltk.corpus import gutenberg, stopwords
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
@@ -15,7 +16,6 @@ book_text = gutenberg.raw("austen-emma.txt")
 
 # Tokenize text into sentences
 sentence_tokens = nltk.sent_tokenize(book_text)
-extract = sentence_tokens[:5]
 
 # Tokenize sentences into lists of words
 sentences_and_words = []
@@ -25,23 +25,22 @@ stopwords = set(stopwords.words("english"))
 unwanted_punctuation = ["!", "?", ",", "--", ".", "''", ";", ":",
                         "'s", "``", "n't", "(", ")", "_", "]", "["]
 
-for sentence in extract:
-    unfiletered_word_tokens = nltk.word_tokenize(sentence)
-    for word in unfiletered_word_tokens:
+for sentence in sentence_tokens:
+    unfiltered_word_tokens = nltk.word_tokenize(sentence)
+    for word in unfiltered_word_tokens:
         # Filter out punctuation and uninteresting words
         if word not in unwanted_punctuation:
             filtered_word_tokens_with_stopwords.append(word)
         if word not in unwanted_punctuation and word.lower() not in stopwords:
             filtered_word_tokens.append(word)
-# print(filtered_word_tokens)
 
 # Count total wordcount in book including stopwords
 word_count = len(filtered_word_tokens_with_stopwords)
-# print(f"{word_count} words in total")
+print(f"{word_count} words in total")
 
 # Count total number of sentences in book
 sentence_count = len(sentence_tokens)
-# print(f"{sentence_count} sentences in total")
+print(f"{sentence_count} sentences in total")
 
 # Count number of unique words in book including stop words
 unique_word_count = Counter(filtered_word_tokens_with_stopwords)
@@ -49,10 +48,10 @@ print(f"{len(unique_word_count)} unique words in total")
 
 # Retrieve and rank the top 10 most used words
 top_ten = unique_word_count.most_common(10)
-# print("top 10:")
+print("top 10:")
 rank = 1
 for word, count in top_ten:
-    # print(f"{rank}. {word}, {count} times")
+    print(f"{rank}. {word}, {count} times")
     rank += 1
 
 # Part-of-speech tag word tokens 
@@ -74,19 +73,13 @@ for word, tag in tagged_word_tokens:
         lemmatized_words.append(
             lemmatizer.lemmatize(word, pos=word_type[tag])
             )
-print(lemmatized_words)
 
-# Print lemmatized words with their tag
+# Lemmatized words with their tag
 tagged_lemmatized_words = nltk.pos_tag(lemmatized_words, tagset="universal")
-print(tagged_lemmatized_words)
-
-# Print lemmatized words with their tag
-tagged_lemmatized_words = nltk.pos_tag(lemmatized_words, tagset="universal")
-# print(tagged_lemmatized_words)
 
 # Calculate new (lemmatized) wordcount
 lemmatized_wordcount = len(lemmatized_words)
-# print(f"{lemmatized_wordcount} words in total (lemmatized)")
+print(f"{lemmatized_wordcount} words in total (lemmatized)")
 
 # Calculate new (lemmatized) unique word count
 lemmatized_unique_word_count = Counter(lemmatized_words)
@@ -98,7 +91,7 @@ for word, tag in tagged_lemmatized_words:
     if tag == "NOUN":
         nouns.append(word)
 nouns_frequency = Counter(nouns)
-# print(f"Nouns: {nouns_frequency}")
+print(f"Nouns: {nouns_frequency}")
 
 # Retrieve 5 most common nouns
 top_ten = nouns_frequency.most_common(5)
@@ -114,7 +107,7 @@ for word, tag in tagged_lemmatized_words:
     if tag == "VERB":
         verbs.append(word)
 verbs_frequency = Counter(verbs)
-# print(f"Verbs: {verbs_frequency}")
+print(f"Verbs: {verbs_frequency}")
 
 # Retrieve 5 most common verbs
 top_ten = verbs_frequency.most_common(5)
@@ -130,7 +123,7 @@ for word, tag in tagged_lemmatized_words:
     if tag == "ADJ":
         adjectives.append(word)
 adjectives_frequency = Counter(adjectives)
-# print(f"Adjectives: {adjectives_frequency}")
+print(f"Adjectives: {adjectives_frequency}")
 
 # Retrieve 5 most common adjectives
 top_ten = adjectives_frequency.most_common(5)
@@ -146,7 +139,7 @@ for word, tag in tagged_lemmatized_words:
     if tag == "ADV":
         adverbs.append(word)
 adverbs_frequency = Counter(adverbs)
-# print(f"Adverbs: {adverbs_frequency}")
+print(f"Adverbs: {adverbs_frequency}")
 
 # Retrieve 5 most common adverbs
 top_ten = adverbs_frequency.most_common(5)
